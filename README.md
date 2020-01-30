@@ -4,6 +4,8 @@
 1) Try to develop a high-level understanding of ITU-MiniTwit.
 2) Migrate ITU-MiniTwit to run on a modern computer running Ubuntu 18.04.
 
+
+```
                         / MiniTwit /
 
            because writing todo lists is not fun
@@ -29,3 +31,4 @@
 
       You betcha.  Run the `minitwit_tests.py` file to
       see the tests pass.
+```
