@@ -1,6 +1,6 @@
 # sesion1
 
-Session page: https://github.com/itu-devops/2020-spring/blob/master/sessions/session_01/Session%201.ipynb
+Course git page: https://github.com/itu-devops/2020-spring
 
 ## Todo
 1) Try to develop a high-level understanding of ITU-MiniTwit.
