@@ -1,5 +1,7 @@
 # sesion1
 
+Course page: https://github.com/itu-devops/2020-spring
+
 ## Todo
 1) Try to develop a high-level understanding of ITU-MiniTwit.
 2) Migrate ITU-MiniTwit to run on a modern computer running Ubuntu 18.04.
