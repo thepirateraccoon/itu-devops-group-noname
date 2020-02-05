@@ -16,7 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Install `sqlite3.h` and its required shared library using `sudo apt-get install libsqlite3-dev`.
 - Convert `minitwit.py` from Python 2 to Python 3 using `2to3`.
 - Modify line 41 in `minitwit.py` by adding `.decode('utf-8')` to fix error when running `./control.sh init`.
-- Run `make build.
+- Run `make build`.
 - Remove redundant `-L /opt/local/lib/` from build command in MakeFile as sqlite is on the path.
 - Run `ldd flag_tool` to verify sqlite dependencies.
 - Install shellcheck and adapt `control.sh` according to recommendations.
