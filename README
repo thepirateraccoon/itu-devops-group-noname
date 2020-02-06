@@ -1,26 +1,44 @@
+# current: sesion2
 
-                        / MiniTwit /
+Course git page: https://github.com/itu-devops/2020-spring
 
-           because writing todo lists is not fun
+Session page: https://github.com/itu-devops/2020-spring/blob/master/sessions/session_02/Session%202_pre.ipynb
 
+## Todo
+0) Send your github.com accounts on Slack to get invited to the new repo.
 
-    ~ What is MiniTwit?
+1) Choose a programming language and framework to investigate in depth, and try to translate the code.
 
-      A SQLite and Flask powered twitter clone
+2) Make the old tests pass.
 
-    ~ How do I use it?
+3) Refactor language/framework decision
+- OBS MSc students: Remember to log and provide good arguments for the choice of programming language and framework. Likely, a feature mapping/comparison or a mini-benchmark is a good choice.
 
-      1. edit the configuration in the minitwit.py file
+4) Start on API for testing (50% done)
 
-      2. fire up a python shell and run this:
+5) Describe Distributed Workflow
+You should reflect and decide on the following points:
+- Which repository setup will we use?
+*  Using one repo, https://github.com/mortenskoett/itu-devops-group-noname
+- Which branching model will we use?
+* Master (stable, used for releases)
+* Feature branch (checking out a new branch based new/changed features, pull request for merge/rebase back into master)
+* Arguments for decisions, simple branching model, small project and multiple developers. Pull request to ensure quality and knowledge sharing.
 
-         >>> from minitwit import init_db; init_db()
+### Questions
+- Which distributed development workflow will we use?
+  - We will be working with a main backlog and communicating async w. Slack.
+  - We will be using a centralized workflow. This makes sense because of current smaller size of the project.
+  - We will try to modularize the code base as much as possible to minimize conflicts when merging/rebasing.
+  - We will require code review for all Pull Request to the master branch.
+  
+- How do we expect contributions to look like?
+  - Commits to feature branches do not have to pass tests
+  - The code on the master branch should always work (i.e. pull requests to the master branch)
+  
+- Who is responsible for integrating/reviewing contributions?
+  - Two persons have to review and accept pull requests to the master branch.
 
-      3. now you can run the minitwit.py file with your
-         python interpreter and the application will
-         greet you on http://localhost:5000/
-	
-    ~ Is it tested?
+Information to at least all of the above points should end up in a markdown document in your main repository (likely called CONTRIBUTE.md).
 
-      You betcha.  Run the `minitwit_tests.py` file to
-      see the tests pass.
+6) Install Docker, VirtualBox, and Vagrant on your computer.
