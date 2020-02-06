@@ -11,6 +11,7 @@ Session page: https://github.com/itu-devops/2020-spring/blob/master/sessions/ses
 3) Refactor language/framework decision: Log and provide good arguments for the choice of programming language and framework. Likely, a feature mapping/comparison or a mini-benchmark is a good choice.
 4) Start on API for testing (50% done)
 5) Describe Distributed Workflow
+6) Install Docker, VirtualBox, and Vagrant on your computer.
   
 ### You should reflect and decide on the following points:
 - Which repository setup will we use?
@@ -34,8 +35,7 @@ Session page: https://github.com/itu-devops/2020-spring/blob/master/sessions/ses
 - Q: Who is responsible for integrating/reviewing contributions?
   - Two persons have to review and accept pull requests to the master branch.
 
-6) Install Docker, VirtualBox, and Vagrant on your computer.
-
 ```
-Info relating to how to contribute to the repo should be put in CONTRIBUTION.md
+Info relating to how to contribute to the repo should be put in CONTRIBUTION.md.
+Info relating to todo should be put into 'Github projects' used as backlog.
 ```
