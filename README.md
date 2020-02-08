@@ -13,15 +13,16 @@ Session page: https://github.com/itu-devops/2020-spring/blob/master/sessions/ses
 5) Describe Distributed Workflow
 6) Install Docker, VirtualBox, and Vagrant on your computer.
   
-### You should reflect and decide on the following points:
-- Which repository setup will we use?
-- Using one repo, https://github.com/mortenskoett/itu-devops-group-noname
-- Which branching model will we use?
-- Master (stable, used for releases)
-- Feature branch (checking out a new branch based new/changed features, pull request for merge/rebase back into master)
-- Arguments for decisions, simple branching model, small project and multiple developers. Pull request to ensure quality and knowledge sharing.
-
+  
 ## Questions
+
+- Q: Which repository setup will we use?
+  - Using one repo, https://github.com/mortenskoett/itu-devops-group-noname
+- Q: Which branching model will we use?
+  - Master (stable, used for releases)
+  - Feature branch (checking out a new branch based new/changed features, pull request for merge/rebase back into master)
+  - Arguments for decisions, simple branching model, small project and multiple developers. Pull request to ensure quality and knowledge sharing.
+
 - Q: Which distributed development workflow will we use?
   - We will be working with a main backlog and communicating async w. Slack.
   - We will be using a centralized workflow. This makes sense because of current smaller size of the project.
