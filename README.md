@@ -40,3 +40,6 @@ Session page: https://github.com/itu-devops/2020-spring/blob/master/sessions/ses
 Info relating to how to contribute to the repo should be put in CONTRIBUTION.md.
 Info relating to todo should be put into 'Github projects' used as backlog.
 ```
+
+# minitwit-nodejs
+An example of a basic structure for the minitwit application using Node.js
