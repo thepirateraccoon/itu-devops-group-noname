@@ -102,6 +102,9 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+# mskk
+/data/minitwit_db
+
 # Logs
 logs
 *.log
