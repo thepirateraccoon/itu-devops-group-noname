@@ -1,56 +1,56 @@
-'use strict'
-
 /**
  * Main server instance.
  */
 
+'use strict'
+
 require('dotenv').config();
 const config = require('./configs')();
-const port = config.app.port;
 const express = require('express');
 const app = express();
+const port = config.app.port;
 
-const mongoose = require('mongoose');
-
-// Import models
-let User = require('./models/usersModel');
-
-
-// Setup/connect database
-const dbUri = `mongodb://${config.mongo.host}/${config.mongo.name}`;
-const dbOptions = 
-{
-    useUnifiedTopology: true, 
-    useNewUrlParser: true
-};
-
-mongoose.connect(dbUri, dbOptions).then(
-    () => { console.log('Database connection successful.') },
-    err => { 
-        console.error.bind(console, `Database connection error: ${err}.`) 
-        throw err;
+// Using SQLite3. See https://github.com/mapbox/node-sqlite3
+const sqlite3 = require('sqlite3').verbose();
+module.exports.db = new sqlite3.Database('./data/minitwit.db', (err) => {
+    if (err) {
+        return console.error(err.message);
     }
-);
+    console.log('Connected to the minitwit.db SQlite database.');
+});
 
+/* Repositories */
+const messageRepository = require('./repositories/messageRepository');
 
-// Before middlewares
+/* Before middlewares */
 app.use(express.json());
+app.use(express.static('static'));
 
-// Setup API routing and controllers
-[
-    'users'
-]
-.map(endpoint => {
-    let router = require(`./routes/${endpoint}Routes`);
-    app.use(`/api/${endpoint}`, router.router);
+// Using EJS. See https://github.com/mde/ejs/wiki/Using-EJS-with-Express
+app.set('view engine', 'ejs');
+
+/* Routing endpoints */
+
+// Home
+app.get('/', function(req, res) {
+
+    // TODO: Db: if user logged in then show private timeline
+    res.redirect('/public');
+});
+
+// Public timeline
+app.get('/public', function(req, res) {
+    let allMesages = messageRepository.getAllMessages(30);
+    res.render('pages/timeline', {
+        messages: allMesages
+    });
 });
 
 
-// After middleware
+/* After middleware */
 app.use(function(req, res) {
   res.status(404).send({url: req.originalUrl + ' : was not found.'})
 });
 
-
-// Start server
+/* Start server */
 app.listen(port, () => console.log(`Minitwit server listening on port ${port}.`));
