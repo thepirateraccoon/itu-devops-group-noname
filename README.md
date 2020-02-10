@@ -4,6 +4,20 @@ Course git page: https://github.com/itu-devops/2020-spring
 
 Session page: https://github.com/itu-devops/2020-spring/blob/master/sessions/session_02/Session%202_pre.ipynb
 
+## Node.js
+### Thoughts on architecture
+- Sqlite db works locally right now.
+- EFS is a template framework that resembles what was used in the Python app to wire up the UI. The EFS stuff which is sort of javascript written directly in the DOM I find a little bit annoying and we will probably have to read som documentation. 
+In the end I used bootstrap to quickly simulate a UI. (see views/partial/head.efs)
+- Setting up end points is happening in `server.js` where there are already examples.
+- See readme for how to run the server etc.
+
+### Todo suggestions
+1. The UI is the primary concern right now:
+2. Figure out what functionality is needed from the Python app and make it visible in the UI.
+3. Map UI to endpoints. (these are easy enough to setup -- see example in code)
+
+
 ## Todo
 0) Send your github.com accounts on Slack to get invited to the new repo.
 1) Choose a programming language and framework to investigate in depth, and try to translate the code.
