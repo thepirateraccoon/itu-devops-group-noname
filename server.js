@@ -12,6 +12,7 @@ const port = config.app.port;
 
 // Using SQLite3. See https://github.com/mapbox/node-sqlite3
 const sqlite3 = require('sqlite3').verbose();
+
 module.exports.db = new sqlite3.Database('./data/minitwit.db', (err) => {
     if (err) {
         return console.error(err.message);
@@ -29,7 +30,7 @@ app.use(express.static('static'));
 // Using EJS. See https://github.com/mde/ejs/wiki/Using-EJS-with-Express
 app.set('view engine', 'ejs');
 
-/* Routing endpoints */
+/* Routing endpoints below*/
 
 // Home
 app.get('/', function(req, res) {
@@ -38,14 +39,16 @@ app.get('/', function(req, res) {
     res.redirect('/public');
 });
 
+
 // Public timeline
-app.get('/public', function(req, res) {
-    let allMesages = messageRepository.getAllMessages(30);
+app.get('/public', async function(req, res) {
+
+    let allMesages = await messageRepository.getAllMessages(30);
+
     res.render('pages/timeline', {
         messages: allMesages
     });
 });
-
 
 /* After middleware */
 app.use(function(req, res) {

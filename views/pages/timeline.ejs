@@ -33,6 +33,8 @@ My Timeline
     </form>
 </div> -->
 
+<%- include('../partials/head.ejs'); %>
+<%- include('../partials/header.ejs'); %>
 
 <ul class=messages>
     <% if (locals.messages) { %>
@@ -50,3 +52,5 @@ My Timeline
         <li><em>There's no message so far.</em></li>
     <% } %>
 </ul>
+
+<%- include('../partials/footer.ejs'); %>
