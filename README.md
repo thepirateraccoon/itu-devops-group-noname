@@ -5,6 +5,15 @@ Course git page: https://github.com/itu-devops/2020-spring
 Session page: https://github.com/itu-devops/2020-spring/blob/master/sessions/session_02/Session%202_pre.ipynb
 
 ## Node.js
+
+### Functional Requirements
+- Be able to log in
+- See all tweets
+- Put up tweets
+- Be able to follow/unfollow another user
+- See only tweets from followed users
+- See tweets from a particular user (?)
+
 ### Thoughts on architecture
 - Sqlite db works locally right now.
 - EFS is a template framework that resembles what was used in the Python app to wire up the UI. The EFS stuff which is sort of javascript written directly in the DOM I find a little bit annoying and we will probably have to read som documentation. 
