@@ -23,7 +23,19 @@ function getFollowedMessages(user_id, amount) {
         order by message.pub_date desc limit ?`, [user_id, user_id, amount])
 };
 
+/**
+ * Get amount messages from the database.
+ * @param {int} userID
+ * @param {int} amount 
+ */
+function getUserMessages(userID, amount) {
+    return helper.getAll(`select message.*, user.* from message, user
+                where message.author_id = user.user_id and (user.user_id = ?)
+                order by message.pub_date desc limit ?`, [userID, amount])
+};
+
 module.exports = {
     getAllMessages,
-    getFollowedMessages
+    getFollowedMessages,
+    getUserMessages
 }
