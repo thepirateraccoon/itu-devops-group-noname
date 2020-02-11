@@ -50,9 +50,7 @@ app.get('/', async function(req, res) {
 
 // Public timeline
 app.get('/public', async function(req, res) {
-
     let allMesages = await messageRepository.getAllMessages(30);
-
     res.render('pages/timeline', {
         messages: allMesages
     });
@@ -60,7 +58,6 @@ app.get('/public', async function(req, res) {
 
 // User timeline
 app.get('/user/:username', async function(req, res) {
-
     let username = req.params.username;
     let userID = 1; //TODO + if user not found, 404
     let allMesages = await messageRepository.getUserMessages(userID, 30);
@@ -70,9 +67,15 @@ app.get('/user/:username', async function(req, res) {
     });
 });
 
+// User login
+app.get('/login', async function(req, res) {
+    let allMesages = await messageRepository.getAllMessages(30);
+    res.render('pages/login', {
+    });
+});
+
 // Follow
 app.get('/user/:username/follow', async function(req, res) {
-
     let whomUsername = req.params.username;
     let whoID = 0; //TODO + if not logged in, 401
     //res.status(401).send({url: req.originalUrl + ' : was not found.'})
@@ -85,7 +88,6 @@ app.get('/user/:username/follow', async function(req, res) {
 
 // Unfollow
 app.get('/user/:username/unfollow', async function(req, res) {
-
     let whomUsername = req.params.username;
     let whoID = 0; //TODO + if not logged in, 401
     //res.status(401).send({url: req.originalUrl + ' : was not found.'})
