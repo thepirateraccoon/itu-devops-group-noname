@@ -22,6 +22,7 @@ module.exports.db = new sqlite3.Database('./data/minitwit.db', (err) => {
 
 /* Repositories */
 const messageRepository = require('./repositories/messageRepository');
+const userRepository = require('./repositories/userRepository');
 
 /* Before middlewares */
 app.use(express.json());
@@ -33,10 +34,15 @@ app.set('view engine', 'ejs');
 /* Routing endpoints below*/
 
 // Home
-app.get('/', function(req, res) {
+app.get('/', async function(req, res) {
 
-    // TODO: Db: if user logged in then show private timeline
-    res.redirect('/public');
+    //let userID = await userRepository.getUserID('john'); // Does not work (needs to be unwrapped?)
+    let userID = 1; //TODO
+    let allMesages = await messageRepository.getFollowedMessages(userID, 30);
+
+    res.render('pages/timeline', {
+        messages: allMesages
+    });
 });
 
 
