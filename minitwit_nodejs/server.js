@@ -100,8 +100,8 @@ app.post('/login/auth', async function (req, res) {
         console.log('user: ' + user);
         console.log('pass: ' + pass);
     
-        // let userId = await userRepository.getIdUsingPassword(user, pass);
-        let userId = await userRepository.getUserID(user);
+        let userId = await userRepository.getIdUsingPassword(user, pass);
+        // let userId = await userRepository.getUserID(user);
 
         if (userId) {
             console.log('userid: ' + userId);
