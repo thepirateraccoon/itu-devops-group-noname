@@ -34,7 +34,14 @@ My Timeline
 </div> -->
 
 <%- include('../partials/head.ejs'); %>
+
+<% if (locals.username) { %>
+    <p> Welcome back, <%= locals.username %> ! </p>
+<% } else { %>
+    <p>Hi stranger, please login.</p>
+    <% } %>
 <%- include('../partials/header.ejs'); %>
+
 
 <ul class=messages>
     <% if (locals.messages) { %>
