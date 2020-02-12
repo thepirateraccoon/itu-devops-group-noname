@@ -14,6 +14,18 @@ function getAll(query, params) {
     });
 }
 
+function insert(query, params) {
+    return new Promise((resolve, reject) => {
+        db.run(query, params, (err, rows) => {
+            if(err) {
+                console.error(err.message);
+                reject();
+            }
+            resolve(rows);
+        }); 
+    });
+}
+
 function getSingle(query, params) {
     return new Promise((resolve, reject) => {
         db.get(query, params, (err, row) => {
@@ -28,5 +40,6 @@ function getSingle(query, params) {
 
 module.exports = {
     getAll,
-    getSingle
+    getSingle,
+    insert
 }

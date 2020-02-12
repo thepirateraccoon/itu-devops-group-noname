@@ -142,28 +142,37 @@ app.get('/user/:username', async function (req, res) {
 });
 
 // Follow
-app.get('/user/:username/follow', async function (req, res) {
+app.get('/user/:username/follow', async function (req, res) { //get?
+    if (!req.session.loggedin) {
+        res.status(401).send({url: req.originalUrl + ' : unautorized - user not followed.'});
+    }
+    let whoID = req.session.userid;
+
     let whomUsername = req.params.username;
-    let whoID = 0; //TODO + if not logged in, 401
-    //res.status(401).send({url: req.originalUrl + ' : was not found.'})
-    let whomID = messageRepository.getUserID(whomUsername); //TODO if not found, 404
-    //res.status(404).send({url: req.originalUrl + ' : was not found.'})
-    await userRepository.follow(whoID, whomID);
+    let whomID = messageRepository.getUserID(whomUsername);
+    if(whomID == null) {
+        res.status(404).send({url: req.originalUrl + ' : was not found.'}); // Render page?
+    }
+    await userRepository.follow(whoID, whomID.user_id);
 
     res.redirect('/user/' + whomUsername);
 });
 
 // Unfollow
-app.get('/user/:username/unfollow', async function (req, res) {
+app.get('/user/:username/unfollow', async function (req, res) { //get?
+    if (!req.session.loggedin) {
+        res.status(401).send({url: req.originalUrl + ' : unautorized - user not unfollowed.'});
+    }
+    let whoID = req.session.userid;
+
     let whomUsername = req.params.username;
-    let whoID = 0; //TODO + if not logged in, 401
-    //res.status(401).send({url: req.originalUrl + ' : was not found.'})
-    let whomID = messageRepository.getUserID(whomUsername); //TODO if not found, 404
-    //res.status(404).send({url: req.originalUrl + ' : was not found.'})
-    await userRepository.unfollow(whoID, whomID);
+    let whomID = messageRepository.getUserID(whomUsername);
+    if(whomID == null) {
+        res.status(404).send({url: req.originalUrl + ' : was not found.'}); // Render page?
+    }
+    await userRepository.unfollow(whoID, whomID.user_id);
 
     res.redirect('/user/' + whomUsername);
-    res.status(404).send({ url: req.originalUrl + ' : was not found.' })
 });
 
 /* After middleware */
