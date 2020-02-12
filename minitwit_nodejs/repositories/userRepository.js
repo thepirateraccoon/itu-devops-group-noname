@@ -31,22 +31,22 @@ function addUser(username, password, email) {
 
 /**
  * Get amount messages from the database.
- * @param {int} whoID
- * @param {int} whomID
+ * @param {int} followerID
+ * @param {int} followedID
  */
-function follow(whoID, whomID) {
+function follow(followerID, followedID) {
     return helper.insert(`insert into follower 
-        (who_id, whom_id) values (?, ?)`, [whoID, whomID]);
+        (who_id, whom_id) values (?, ?)`, [followerID, followedID]);
 };
 
 /**
  * Get amount messages from the database.
- * @param {int} whoID
- * @param {int} whomID
+ * @param {int} followerID
+ * @param {int} followedID
  */
-function unfollow(whoID, whomID) {
+function unfollow(followerID, followedID) {
     return helper.insert(`delete from follower 
-        where who_id=? and whom_id=?`, [whoID, whomID]);//TODO getAll?
+        where who_id=? and whom_id=?`, [followerID, followedID]);
 };
 
 module.exports = {

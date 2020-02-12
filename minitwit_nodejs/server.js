@@ -105,7 +105,7 @@ app.post('/login/auth', async function (req, res) {
         // let userId = await userRepository.getUserID(user);
 
         if (userId) {
-            console.log('userid: ' + userId);
+            console.log('userid: ' + userId.user_id);
             req.session.loggedin = true;
             req.session.username = user;
             req.session.userid = userId.user_id;
@@ -143,37 +143,39 @@ app.get('/user/:username', async function (req, res) {
 });
 
 // Follow
-app.get('/user/:username/follow', async function (req, res) { //get?
-    if (!req.session.loggedin) {
-        res.status(401).send({url: req.originalUrl + ' : unautorized - user not followed.'});
-    }
-    let whoID = req.session.userid;
-
-    let whomUsername = req.params.username;
-    let whomID = messageRepository.getUserID(whomUsername);
-    if(whomID == null) {
-        res.status(404).send({url: req.originalUrl + ' : was not found.'}); // Render page?
-    }
-    await userRepository.follow(whoID, whomID.user_id);
-
-    res.redirect('/user/' + whomUsername);
-});
-
-// Unfollow
-app.get('/user/:username/unfollow', async function (req, res) { //get?
+app.get('/user/follow/:username', async function (req, res) { //get?
     if (!req.session.loggedin) {
         res.status(401).send({url: req.originalUrl + ' : unautorized - user not unfollowed.'});
     }
-    let whoID = req.session.userid;
+    let followerID = req.session.userid;
 
-    let whomUsername = req.params.username;
-    let whomID = messageRepository.getUserID(whomUsername);
-    if(whomID == null) {
+    let followedUsername = req.params.username;
+    let followedID = await userRepository.getUserID(followedUsername);
+    if(followedID == null) {
         res.status(404).send({url: req.originalUrl + ' : was not found.'}); // Render page?
     }
-    await userRepository.unfollow(whoID, whomID.user_id);
+    console.log("id: " + followerID + "now follows id: " + followedID.user_id);
+    await userRepository.follow(followerID, followedID.user_id);
 
-    res.redirect('/user/' + whomUsername);
+    res.redirect('/user/' + followedUsername);
+});
+
+// Unfollow
+app.get('/user/unfollow/:username', async function (req, res) { //get?
+    if (!req.session.loggedin) {
+        res.status(401).send({url: req.originalUrl + ' : unautorized - user not unfollowed.'});
+    }
+    let followerID = req.session.userid;
+
+    let followedUsername = req.params.username;
+    let followedID = await userRepository.getUserID(followedUsername);
+    if(followedID == null) {
+        res.status(404).send({url: req.originalUrl + ' : was not found.'}); // Render page?
+    }
+    console.log("id: " + followerID + "no longer follows id: " + followedID.user_id);
+    await userRepository.unfollow(followerID, followedID.user_id);
+
+    res.redirect('/user/' + followedUsername);
 });
 
 /* After middleware */
