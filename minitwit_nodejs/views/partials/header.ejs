@@ -10,9 +10,25 @@
         </a>
 
         <ul class="nav navbar-nav">
-            <li><a href="/hello">Something</a></li>
-            <li><a href="/about">Log in</a></li>
+          <!-- #TODO, if logged in
+            {% if g.user %}
+          -->
+            <li><a href="/">my timeline</a> </li>
+            <li><a href="/public">public timeline</a> </li>
+            <li><a href="/logout">sign out [<!-- TODO, get username of logged in user
+                                            {{ g.user.username }}-->]</a> </li>
+          <!-- #TODO if not logged in
+            {% else %} 
+          -->
+            <li><a href="/public">public timeline</a> </li>
+            <li><a href="/register">sign up</a> </li>
+            <li><a href="/login">sign in</a></li>
+          <!-- #TODO end if statement
+            {% endif %}
+          -->
         </ul>
+        
+
     </div>
 
 </div>
