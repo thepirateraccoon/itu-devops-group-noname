@@ -5,12 +5,13 @@ Course git page: https://github.com/itu-devops/2020-spring
 Session page: https://github.com/itu-devops/2020-spring/blob/master/sessions/session_02/Session%202_pre.ipynb
 
 ### Minitwit functional Requirements
-- Be able to log in
-- See all tweets
-- Put up tweets
-- Be able to follow/unfollow another user
-- See only tweets from followed users
-- See tweets from a particular user (?)
+- [x] Be able to log in
+- [x] See all tweets
+- [x] Be able to follow/unfollow another user
+- [x] See only tweets from followed users
+- [ ] Put up tweets
+- [ ] Have nasty words flagged
+- [ ] See tweets from a particular user (?)
 
 ### Thoughts on current Node.js architecture
 - Sqlite db works locally right now.
