@@ -7,6 +7,7 @@
 require('dotenv').config();
 const config = require('./configs')();
 const express = require('express');
+const session = require('express-session');
 const app = express();
 const port = config.app.port;
 
@@ -26,41 +27,107 @@ const userRepository = require('./repositories/userRepository');
 
 /* Before middlewares */
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static('static'));
+app.use(session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+}));
 
 // Using EJS. See https://github.com/mde/ejs/wiki/Using-EJS-with-Express
 app.set('view engine', 'ejs');
 
 /* Routing endpoints below*/
 
-// Home
-app.get('/', async function(req, res) {
+// Public or User timeline
+app.get('/', async function (req, res) {
 
-    //TODO check if user is logged in, if not:
-    //res.redirect('/public');
+    // User already logged in
+    if (req.session.loggedin) {
+        res.redirect('/home');
+        res.end();
+    }
 
-    let userID = 1; //TODO
-    let allMesages = await messageRepository.getFollowedMessages(userID, 30);
+    // Unkown user
+    else {
+        res.redirect('/public');
+        res.end();
+    }
+});
+
+// For logged-in users
+app.get('/home', async function (req, res) {
+    if (!req.session.loggedin) {
+        res.redirect('/public');
+        res.end();
+    }
+
+    let userId = req.session.userid;
+
+    console.log('userId: ' + userId);
+    let allMesages = await messageRepository.getFollowedMessages(userId, 30);
+
+    console.log('messages: ' + allMesages.length);
 
     res.render('pages/timeline', {
-        messages: allMesages
+        messages: allMesages,
+        username: req.session.username
     });
+    res.end();
 });
 
 
 // Public timeline
-app.get('/public', async function(req, res) {
-
+app.get('/public', async function (req, res) {
     let allMesages = await messageRepository.getAllMessages(30);
-
     res.render('pages/timeline', {
         messages: allMesages
     });
 });
 
-// User timeline
-app.get('/user/:username', async function(req, res) {
+// User login page
+app.get('/login', async function (req, res) {
+    res.render('pages/login');
+});
 
+// User authorization
+app.post('/login/auth', async function (req, res) {
+    const user = req.body.username;
+    var pass = req.body.password;
+
+    if (user && pass) {
+        console.log('user: ' + user);
+        console.log('pass: ' + pass);
+    
+        let userId = await userRepository.getIdUsingPassword(user, pass);
+        // let userId = await userRepository.getUserID(user);
+
+        if (userId) {
+            console.log('userid: ' + userId);
+            req.session.loggedin = true;
+            req.session.username = user;
+            req.session.userid = userId;
+            res.redirect('/home');       // TODO: Figure out logic to go to private timeline
+            res.end();
+        }
+        else {
+            res.render('pages/login', {
+                error: 'Incorrect username or password.'
+            });
+            res.end();
+        }
+    }
+    else {
+        res.render('pages/login', {
+            error: 'Please enter username and password'
+        });
+        res.end();
+    }
+});
+
+// User timeline
+app.get('/user/:username', async function (req, res) {
     let username = req.params.username;
     let userID = 1; //TODO + if user not found, 404
     let allMesages = await messageRepository.getUserMessages(userID, 30);
@@ -71,8 +138,7 @@ app.get('/user/:username', async function(req, res) {
 });
 
 // Follow
-app.get('/user/:username/follow', async function(req, res) {
-
+app.get('/user/:username/follow', async function (req, res) {
     let whomUsername = req.params.username;
     let whoID = 0; //TODO + if not logged in, 401
     //res.status(401).send({url: req.originalUrl + ' : was not found.'})
@@ -84,8 +150,7 @@ app.get('/user/:username/follow', async function(req, res) {
 });
 
 // Unfollow
-app.get('/user/:username/unfollow', async function(req, res) {
-
+app.get('/user/:username/unfollow', async function (req, res) {
     let whomUsername = req.params.username;
     let whoID = 0; //TODO + if not logged in, 401
     //res.status(401).send({url: req.originalUrl + ' : was not found.'})
@@ -94,12 +159,12 @@ app.get('/user/:username/unfollow', async function(req, res) {
     await userRepository.unfollow(whoID, whomID);
 
     res.redirect('/user/' + whomUsername);
-    res.status(404).send({url: req.originalUrl + ' : was not found.'})
+    res.status(404).send({ url: req.originalUrl + ' : was not found.' })
 });
 
 /* After middleware */
-app.use(function(req, res) {
-  res.status(404).send({url: req.originalUrl + ' : was not found.'})
+app.use(function (req, res) {
+    res.status(404).send({ url: req.originalUrl + ' : was not found.' })
 });
 
 /* Start server */

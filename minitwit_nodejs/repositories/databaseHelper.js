@@ -14,6 +14,19 @@ function getAll(query, params) {
     });
 }
 
+function getSingle(query, params) {
+    return new Promise((resolve, reject) => {
+        db.get(query, params, (err, row) => {
+            if (err) {
+                console.error(err.message);
+                reject();
+            }
+            resolve(row);
+        });
+    });
+}
+
 module.exports = {
-    getAll
+    getAll,
+    getSingle
 }
