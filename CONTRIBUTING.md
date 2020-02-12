@@ -39,3 +39,30 @@ feature based branch on which more people are working.
 
 4. You may merge a pull request to master once you have the sign-off of another developer, or if you 
    do not have permission to do that, you may request the second reviewer to merge it for you.
+
+
+
+## Detailed comments
+
+## Questions
+
+- Q: Which repository setup will we use?
+  - Using one repo, https://github.com/mortenskoett/itu-devops-group-noname
+
+- Q: Which branching model will we use?
+  - Arguments for branching policy, simple branching model, small project and multiple developers. Pull request 
+  to ensure quality and knowledge sharing.
+
+- Q: Which distributed development workflow will we use?
+  - We will be working with a main backlog and communicating async w. Slack.
+  - We will be using a centralized workflow. This makes sense because of current smaller size of the project.
+  - We will try to modularize the code base as much as possible to minimize conflicts when merging/rebasing.
+  - We will require code review for all Pull Request to the master branch.
+  
+- Q: How do we expect contributions to look like?
+  - Commits to feature branches do not have to pass tests
+  - The code on the master branch should always work (i.e. pull requests to the master branch)
+  
+- Q: Who is responsible for integrating/reviewing contributions?
+  - Two persons have to review and accept pull requests to the master branch.
+
