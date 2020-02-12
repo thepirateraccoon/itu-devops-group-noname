@@ -129,11 +129,15 @@ app.post('/login/auth', async function (req, res) {
 // User timeline
 app.get('/user/:username', async function (req, res) {
     let username = req.params.username;
-    let userID = 1; //TODO + if user not found, 404
-    let allMesages = await messageRepository.getUserMessages(userID, 30);
+    let userID = await userRepository.getUserID(username);
+    if(userID == null) {
+        res.status(404).send({url: req.originalUrl + ' : was not found.'}); // Render page?
+    }
+    console.log(userID.user_id);
+    let allMessages = await messageRepository.getUserMessages(userID.user_id, 30);
 
     res.render('pages/timeline', {
-        messages: allMesages
+        messages: allMessages
     });
 });
 
