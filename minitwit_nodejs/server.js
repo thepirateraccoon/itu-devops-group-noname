@@ -62,8 +62,9 @@ app.get('/home', async function (req, res) {
         res.redirect('/public');
         res.end();
     }
-
+    
     let userId = req.session.userid;
+    console.log(userId);
 
     console.log('userId: ' + userId);
     let allMesages = await messageRepository.getFollowedMessages(userId, 30);
@@ -107,7 +108,7 @@ app.post('/login/auth', async function (req, res) {
             console.log('userid: ' + userId);
             req.session.loggedin = true;
             req.session.username = user;
-            req.session.userid = userId;
+            req.session.userid = userId.user_id;
             res.redirect('/home');       // TODO: Figure out logic to go to private timeline
             res.end();
         }
