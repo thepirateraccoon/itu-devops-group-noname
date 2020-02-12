@@ -34,8 +34,19 @@ function getUserMessages(userID, amount) {
                 order by message.pub_date desc limit ?`, [userID, amount])
 };
 
+/**
+ * Get amount messages from the database.
+ * @param {int} userID
+ * @param {string} text 
+ * @param {int} date
+ */
+function addMessage(userID, text, date) {
+    return helper.insert(`insert into message (author_id, text, pub_date) values (?, ?, ?)`, [userID, text, date])
+};
+
 module.exports = {
     getAllMessages,
     getFollowedMessages,
-    getUserMessages
+    getUserMessages,
+    addMessage
 }
