@@ -9,7 +9,7 @@ We have some simple interaction policies, please follow these in all your intera
 
 ## Branching Policy
 We currently follow a branching policy where each feature or separete part of the code base is developed 
-in its own branch before finally pull requested into the `master` branch. 
+in its own `feature` branch before finally pull requested into the `master` branch. 
 
 The master branch should be as stable as possible but it also works as an intermediary branch so that 
 developers can get the newest changes as fast as possible. The master branch requires that another developer
@@ -23,12 +23,12 @@ release		----->				(only used at milestones or when a stable master needs to be 
 				/
 master	 	----------->		(newest stable changes)
 				/     /
-features	-------------->		(your work branch)
+feature		-------------->		(your work branch)
 ```
 
 ## Pull Request Process
 
-1. Pull request should be made for any change to public branches; `master`, `release` and any
+1. Pull requests should be made for any change to public branches; `master`, `release` and any
 feature based branch on which more people are working.
 
 2. Update the README.md and with details of changes to the interface, this includes new environment 
@@ -39,7 +39,6 @@ feature based branch on which more people are working.
 
 4. You may merge a pull request to master once you have the sign-off of another developer, or if you 
    do not have permission to do that, you may request the second reviewer to merge it for you.
-
 
 
 ## Detailed comments
@@ -62,6 +61,7 @@ feature based branch on which more people are working.
 - Q: How do we expect contributions to look like?
   - Commits to feature branches do not have to pass tests
   - The code on the master branch should always work (i.e. pull requests to the master branch)
+  - Pull request to the release branch should be discussed and worked towards.
   
 - Q: Who is responsible for integrating/reviewing contributions?
   - Two persons have to review and accept pull requests to the master branch.
