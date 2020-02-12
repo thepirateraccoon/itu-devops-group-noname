@@ -73,7 +73,8 @@ app.get('/home', async function (req, res) {
 
     res.render('pages/timeline', {
         messages: allMesages,
-        username: req.session.username
+        username: req.session.username,
+        loggedin: true
     });
     res.end();
 });
@@ -83,7 +84,8 @@ app.get('/home', async function (req, res) {
 app.get('/public', async function (req, res) {
     let allMesages = await messageRepository.getAllMessages(30);
     res.render('pages/timeline', {
-        messages: allMesages
+        messages: allMesages,
+        loggedin: req.session.loggedin
     });
 });
 
@@ -127,6 +129,14 @@ app.post('/login/auth', async function (req, res) {
     }
 });
 
+// User logout page
+app.get('/logout', async function (req, res) {
+    req.session.loggedin = false;
+    req.session.username = null;
+    req.session.userid = null;
+    res.redirect('/public');
+});
+
 // User timeline
 app.get('/user/:username', async function (req, res) {
     let username = req.params.username;
@@ -149,7 +159,8 @@ app.get('/user/:username', async function (req, res) {
     res.render('pages/user', {
         messages: allMessages,
         user: username,
-        following: followed
+        following: followed,
+        loggedin: req.session.loggedin
     });
 });
 
